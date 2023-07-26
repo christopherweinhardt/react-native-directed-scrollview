@@ -19,6 +19,7 @@ import com.facebook.react.uimanager.PixelUtil;
 import com.facebook.react.uimanager.events.NativeGestureUtil;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.scroll.ReactScrollViewHelper;
+import com.facebook.react.views.scroll.ReactScrollViewHelper.HasScrollEventThrottle;
 import com.facebook.react.views.scroll.VelocityHelper;
 import com.facebook.react.views.view.ReactViewGroup;
 
@@ -29,7 +30,7 @@ import java.util.Arrays;
 
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 
-public class DirectedScrollView extends ReactViewGroup {
+public class DirectedScrollView extends ReactViewGroup implements HasScrollEventThrottle {
   private static final Interpolator SNAP_BACK_ANIMATION_INTERPOLATOR =
       new LinearOutSlowInInterpolator();
 
@@ -582,5 +583,25 @@ public class DirectedScrollView extends ReactViewGroup {
 
   private long getAnimationDuration() {
     return animationDuration;
+  }
+
+  @Override
+  public void setScrollEventThrottle(int i) {
+
+  }
+
+  @Override
+  public int getScrollEventThrottle() {
+    return 0;
+  }
+
+  @Override
+  public void setLastScrollDispatchTime(long l) {
+
+  }
+
+  @Override
+  public long getLastScrollDispatchTime() {
+    return 0;
   }
 }
