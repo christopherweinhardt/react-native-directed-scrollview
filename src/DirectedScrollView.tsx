@@ -87,7 +87,9 @@ export class DirectedScrollView extends Component<IDirectedScrollViewProps> {
 
   public componentDidMount() {
     setTimeout(() => {
-      this.zoomToStart({ animated: false });
+      try {
+        this.zoomToStart({ animated: false });
+      } catch (e) {}
     }, 0);
 
     DeviceEventEmitter.addListener('onSwipeDown', event => {
