@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Matrix;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
@@ -20,7 +21,7 @@ import com.facebook.react.uimanager.events.NativeGestureUtil;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.scroll.ReactScrollViewHelper;
 import com.facebook.react.views.scroll.ReactScrollViewHelper.HasScrollEventThrottle;
-import com.facebook.react.views.scroll.VelocityHelper;
+import androidx.core.view.VelocityTrackerCompat;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class DirectedScrollView extends ReactViewGroup implements HasScrollEvent
   private float lastPositionX, lastPositionY;
   private int minFlingVelocity;
   private int maxFlingVelocity;
-  private VelocityHelper velocityHelper = new VelocityHelper();
+  private VelocityTracker velocityTracker = VelocityTracker.obtain();
   private long animationDuration = 2000;
 
   private ScaleGestureDetector scaleDetector;
@@ -161,7 +162,7 @@ public class DirectedScrollView extends ReactViewGroup implements HasScrollEvent
 
   @Override
   public boolean onTouchEvent(MotionEvent motionEvent) {
-    velocityHelper.calculateVelocity(motionEvent);
+    velocityTracker.computeCurrentVelocity(1000);
 
     switch (motionEvent.getAction()) {
       case MotionEvent.ACTION_DOWN:
@@ -278,8 +279,8 @@ public class DirectedScrollView extends ReactViewGroup implements HasScrollEvent
     float scrollYSwipe = 0;
     if (isScrollInProgress) {
       float scale = getContext().getResources().getDisplayMetrics().density;
-      float rnVelocityX = velocityHelper.getXVelocity();
-      float rnVelocityY = velocityHelper.getYVelocity();
+      float rnVelocityX = velocityTracker.getXVelocity();
+      float rnVelocityY = velocityTracker.getYVelocity();
       float velocityX = rnVelocityX * scale * 100;
       float velocityY = rnVelocityY * scale * 100;
 
