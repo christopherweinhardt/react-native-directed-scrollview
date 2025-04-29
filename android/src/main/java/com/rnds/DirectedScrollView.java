@@ -162,8 +162,6 @@ public class DirectedScrollView extends ReactViewGroup implements HasScrollEvent
 
   @Override
   public boolean onTouchEvent(MotionEvent motionEvent) {
-    velocityTracker.computeCurrentVelocity(1000);
-
     switch (motionEvent.getAction()) {
       case MotionEvent.ACTION_DOWN:
         onActionDown(motionEvent);
@@ -238,6 +236,8 @@ public class DirectedScrollView extends ReactViewGroup implements HasScrollEvent
   }
 
   private void onActionDown(MotionEvent motionEvent) {
+    // reset tracker by touch start
+    velocityTracker.obtain();
     startTouchX = motionEvent.getX();
     startTouchY = motionEvent.getY();
     startScrollX = scrollX;
@@ -263,6 +263,8 @@ public class DirectedScrollView extends ReactViewGroup implements HasScrollEvent
     scrollX = startScrollX + deltaX;
     scrollY = startScrollY + deltaY;
 
+    // register velocity
+    velocityTracker.addMovement(motionEvent);
     if (bounces) {
       clampAndTranslateChildren(
           false,
@@ -276,6 +278,8 @@ public class DirectedScrollView extends ReactViewGroup implements HasScrollEvent
   }
 
   private void onActionUp() {
+    // recalculate
+    velocityTracker.computeCurrentVelocity(1);
     float scrollYSwipe = 0;
     if (isScrollInProgress) {
       float scale = getContext().getResources().getDisplayMetrics().density;
@@ -291,8 +295,8 @@ public class DirectedScrollView extends ReactViewGroup implements HasScrollEvent
       if (Math.abs(velocityX) > minFlingVelocity || Math.abs(velocityY) > minFlingVelocity) {
         OverScroller scroller = predictFinalScrollPosition((int) velocityX, (int) velocityY);
 
-         scrollX = velocityX + scroller.getFinalX();
-         scrollY = velocityY + scroller.getFinalY();
+        scrollX = velocityX + scroller.getFinalX();
+        scrollY = velocityY + scroller.getFinalY();
         animationDuration = 1950;
       }
     }
