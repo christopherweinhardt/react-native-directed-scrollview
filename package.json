@@ -1,6 +1,6 @@
 {
-  "name": "@olimpic245/react-native-directed-scrollview",
-  "version": "2.1.20",
+  "name": "@christoffyw/react-native-directed-scrollview",
+  "version": "2.1.21",
   "description": "A natively implemented scrollview component which lets you specify different scroll directions for child content.",
   "scripts": {
     "analyze": "npx tsc --noEmit",
@@ -8,8 +8,7 @@
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
     "shipit": "np",
     "test": "echo no tests defined",
-    "build": "bob build",
-    "prepare": "yarn build"
+    "build": "npx bob build"
   },
   "react-native": "src/index.ts",
   "types": "lib/typescript/index.d.ts",
@@ -25,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/olimpic245/react-native-directed-scrollview.git"
+    "url": "git+https://github.com/christopherweinhardt/react-native-directed-scrollview.git"
   },
   "keywords": [
     "react-component",
@@ -38,8 +37,8 @@
     "direction"
   ],
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-native": "^0.69.0"
+    "react": "*",
+    "react-native": "*"
   },
   "nativePackage": true,
   "author": {
@@ -52,24 +51,19 @@
   "homepage": "https://github.com/olimpic245/react-native-directed-scrollview#readme",
   "devDependencies": {
     "@babel/core": "*",
-    "@react-native-community/bob": "^0.7.0",
-    "@types/jest": "^24.0.18",
-    "@types/react": "^16.9.5",
-    "@types/react-native": "^0.60.17",
-    "@types/react-test-renderer": "17.0.1",
+    "@types/jest": "^26.0.24",
+    "@types/react": "^18.3.3",
+    "@types/react-native": "^0.69.5",
+    "@types/react-test-renderer": "^18.0.0",
     "clang-format": "^1.2.4",
     "husky": "^3.0.8",
     "lint-staged": "^9.4.1",
     "np": "^7.5.0",
     "prettier": "^1.18.2",
-    "react": "18.0.0",
-    "react-native": "0.69.0",
-    "tslib": "^1.9.2",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-config-security": "^1.16.0",
-    "tslint-react": "^4.1.0",
-    "typescript": "^4.9.5"
+    "react": "18.2.0",
+    "react-native": "0.74.2",
+    "react-native-builder-bob": "^0.40.11",
+    "typescript": "^5.5.4"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
