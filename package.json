@@ -81,9 +81,9 @@
     ]
   },
   "eslintConfig": {
-    "extends": "@react-native-community"
+    "extends": "react-native-builder-bob"
   },
-  "@react-native-community/bob": {
+  "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
     "targets": [
@@ -91,11 +91,6 @@
       "module",
       "typescript"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "directories": {
     "example": "example",

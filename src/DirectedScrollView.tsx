@@ -11,7 +11,11 @@ import ReactNative, {
 // tslint:disable-next-line: no-submodule-imports
 import ScrollResponder from './ScrollResponder';
 
-const NativeScrollView = requireNativeComponent('DirectedScrollView');
+interface NativeScrollViewProps extends ScrollViewProps {
+  children?: React.ReactNode;
+}
+
+const NativeScrollView = requireNativeComponent<NativeScrollViewProps>('DirectedScrollView');
 
 export type IDirectedScrollViewProps = ScrollViewProps & { onSwipeDown: () => void };
 
@@ -32,7 +36,7 @@ export class DirectedScrollView extends Component<IDirectedScrollViewProps> {
     ...ScrollResponder.Mixin.scrollResponderMixinGetInitialState(),
   };
 
-  private scrollViewRef = React.createRef<DirectedScrollView>();
+  private scrollViewRef = React.createRef<any>();
   private scrollResponder: ScrollResponder.Mixin = createScrollResponder(this);
 
   constructor(props: IDirectedScrollViewProps) {
@@ -110,13 +114,11 @@ export class DirectedScrollView extends Component<IDirectedScrollViewProps> {
         onMomentumScrollBegin={this.scrollResponder.scrollResponderHandleMomentumScrollBegin}
         onMomentumScrollEnd={this.scrollResponder.scrollResponderHandleMomentumScrollEnd}
         onStartShouldSetResponder={this.scrollResponder.scrollResponderHandleStartShouldSetResponderCapture}
-        onScrollShouldSetResponder={this.scrollResponder.scrollResponderHandleScrollShouldSetResponder}
         onResponderGrant={this.scrollResponder.scrollResponderHandleResponderGrant}
         onResponderTerminationRequest={this.scrollResponder.scrollResponderHandleTerminationRequest}
         onResponderTerminate={this.scrollResponder.scrollResponderHandleTerminate}
         onResponderRelease={this.scrollResponder.scrollResponderHandleResponderRelease}
         onResponderReject={this.scrollResponder.scrollResponderHandleResponderReject}
-        onS={true}
       >
         <View style={this.props.contentContainerStyle} pointerEvents={'box-none'}>
           {this.props.children}
